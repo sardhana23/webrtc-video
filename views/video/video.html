@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Soma's Chat</title>
+    <script type="text/javascript" src="http://cdn.icecomm.io/icecomm.js"></script> 
+
+	<style>
+		#localVideo {
+		  position: absolute;
+		  right: 20px;
+		  bottom: 20px;
+		  width: 200px;
+		}
+		
+		video:nth-of-type(2) {
+		  position: fixed; right: 0; bottom: 0;
+		  min-width: 100%; min-height: 100%;
+		  width: auto; height: auto; z-index: -100;
+		  background-size: cover;
+		}
+	</style>
+  </head>
+  <body>
+    <video id="localVideo" autoplay></video>
+    <script type="text/javascript">
+	var comm = new Icecomm('7tUHoLJ9OPIs3SdvJucSjNSeVTdM0a66hxmwFiXJnbcScXUG')
+	
+	comm.on('local', function(options) {
+	  localVideo.src = options.stream;
+	});
+	
+	comm.on('connected', function(options) {
+	    document.body.appendChild(options.getVideo());
+	});
+	
+	comm.on('disconnect', function(options) {
+	    document.getElementById(options.callerID).remove();
+	});
+	
+	comm.connect('njpWfaLee1')
+    </script> 
+  </body>
+</html>
