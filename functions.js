@@ -6,7 +6,6 @@ var bcrypt = require('bcryptjs'),
 
 //used in local-signup strategy
 exports.localReg = function (username, password) {
-	console.log('Entering Local Reg 1');
   var deferred = Q.defer();
   var hash = bcrypt.hashSync(password, 8);
   var user = {
@@ -22,10 +21,10 @@ exports.localReg = function (username, password) {
   .fail(function (result) {//case in which user does not already exist in db
       console.log(result.body);
       if(username == "soma2307" || username == "manasi1710") {
-		console.log("tried creating username for user : " + username);
-		console.log(user);
+		    console.log("tried creating username for user : " + username);
+		    console.log(user);
     		deferred.resolve(false); //username already exists
-	}
+	    }
       else if (result.body.message == 'The requested items could not be found.'){
         console.log('Username is free for use');
         db.put('local-users', username, user)
@@ -34,12 +33,10 @@ exports.localReg = function (username, password) {
           deferred.resolve(user);
         })
         .fail(function (err) {
-		console.log("failed");
           console.log("PUT FAIL:" + err.body);
           deferred.reject(new Error(err.body));
         });
       } else {
-	console.log("error");
         deferred.reject(new Error(result.body));
       }
   });
@@ -63,7 +60,7 @@ exports.localAuth = function (username, password) {
     if (bcrypt.compareSync(password, hash)) {
       deferred.resolve(result.body);
     } else {
-      console.log("PASSWORDS NOT MATCH");
+      console.log("PASSWORDS DO NOT MATCH");
       deferred.resolve(false);
     }
   }).fail(function (err){
