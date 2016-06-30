@@ -20,7 +20,7 @@ exports.localReg = function (username, password) {
   })
   .fail(function (result) {//case in which user does not already exist in db
       console.log(result.body);
-      if(username == "soma2307" || username == "manasi1710") {
+      if(!(username == 'soma2307' || username == 'manasi1710')) {
 		    console.log("tried creating username for user : " + username);
 		    console.log(user);
     		deferred.resolve(false); //username already exists
