@@ -24,6 +24,8 @@
     <script type="text/javascript">
 	var comm = new Icecomm('7tUHoLJ9OPIs3SdvJucSjNSeVTdM0a66hxmwFiXJnbcScXUG')
 	
+	comm.connect('njpWfaLee1');
+	
 	comm.on('local', function(options) {
 	  localVideo.src = options.stream;
 	});
@@ -36,7 +38,6 @@
 	    document.getElementById(options.callerID).remove();
 	});
 	
-	comm.connect('njpWfaLee1');
     </script> 
   </body>
 </html>
