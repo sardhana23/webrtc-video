@@ -1,27 +1,73 @@
 <html>
   <head>
     <title>Soma's Chat</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script type="text/javascript" src="http://cdn.icecomm.io/icecomm.js"></script> 
 
 	<style>
+		#buttonPanel {
+			position: absolute;
+			bottom: 20px;
+			left: 20px;
+		}
+
 		#localVideo {
 		  position: absolute;
 		  right: 20px;
 		  bottom: 20px;
-		  width: 300px;
+		  width: 200px;
 		  transform: scaleX(-1);
 		}
 		
 		video:nth-of-type(2) {
-		  position: fixed; right: 0; bottom: 0;
-		  min-width: 100%; min-height: 100%;
-		  width: auto; height: auto; z-index: -100;
+		  position: fixed;
+		  top: 0; left: 0; bottom: 0; right: 0;
+		  height: 100%; width: 100%;
+		  z-index: -100;
 		  background-size: cover;
 		}
 	</style>
+	<script type="text/javascript">
+		window.callerID = "null";
+
+		function volumeOnClick() {
+			if(window.callerID == "null") {
+				console.log("null volume button");
+				return;
+			}
+
+			var video = document.getElementById(window.callerID);
+			
+			if(video.muted) {
+				video.muted = false;
+			} else {
+				video.muted = true;
+			}
+		}
+
+		function videoOnClick() {
+			var style = document.getElementById('localVideo').style;
+			if(style.display == '' || style.display == 'inline') {
+				style.display = 'none';	
+			} else {
+				style.display = 'inline';
+			}
+			
+		}
+	</script>
+
   </head>
   <body>
     <video id="localVideo" muted autoplay style="scaleX=-1"></video>
+    <div id="buttonPanel">
+	    <button class="btn btn-primary btn-lg" role="button" onClick="volumeOnClick()">
+	        	<span class="glyphicon glyphicon-volume-up"></span>
+	    </button>
+
+	    <button class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+	        	<span class="glyphicon glyphicon-film"></span>
+	    </button>
+	</div>
     <script type="text/javascript">
 	var comm = new Icecomm('7tUHoLJ9OPIs3SdvJucSjNSeVTdM0a66hxmwFiXJnbcScXUG')
 	
@@ -33,6 +79,7 @@
 	
 	comm.on('connected', function(options) {
 	    document.body.appendChild(options.getVideo());
+	    window.callerID = options.callerID;
 	});
 	
 	comm.on('disconnect', function(options) {
