@@ -37,22 +37,31 @@
 			}
 
 			var video = document.getElementById(window.callerID);
+			var button = document.getElementById('volumeButton');
 			
 			if(video.muted) {
 				video.muted = false;
+				button.className = "btn btn-primary btn-lg";
 			} else {
 				video.muted = true;
+				button.className = "btn btn-danger btn-lg";
 			}
+
+			console.log(button.class);
 		}
 
 		function videoOnClick() {
 			var style = document.getElementById('localVideo').style;
+			var button = document.getElementById('videoButton');
 			if(style.display == '' || style.display == 'inline') {
 				style.display = 'none';	
+				button.className = "btn btn-danger btn-lg";
 			} else {
 				style.display = 'inline';
+				button.className = "btn btn-primary btn-lg";
 			}
 			
+			console.log(button.class);
 		}
 	</script>
 
@@ -60,11 +69,11 @@
   <body>
     <video id="localVideo" muted autoplay style="scaleX=-1"></video>
     <div id="buttonPanel">
-	    <button class="btn btn-primary btn-lg" role="button" onClick="volumeOnClick()">
+	    <button id="volumeButton" class="btn btn-primary btn-lg" role="button" onClick="volumeOnClick()">
 	        	<span class="glyphicon glyphicon-volume-up"></span>
 	    </button>
 
-	    <button class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+	    <button id="videoButton" class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
 	        	<span class="glyphicon glyphicon-film"></span>
 	    </button>
 	</div>
