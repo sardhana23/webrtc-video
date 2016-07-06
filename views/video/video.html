@@ -38,7 +38,6 @@
 
 		function volumeOnClick() {
 			if(window.callerID == "null") {
-				console.log("null volume button");
 				return;
 			}
 
@@ -52,8 +51,6 @@
 				video.muted = true;
 				button.className = "btn btn-danger btn-lg";
 			}
-
-			console.log(button.class);
 		}
 
 		function videoOnClick() {
@@ -66,8 +63,6 @@
 				style.display = 'inline';
 				button.className = "btn btn-primary btn-lg";
 			}
-			
-			console.log(button.class);
 		}
 	</script>
 
