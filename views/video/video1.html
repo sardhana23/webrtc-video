@@ -85,8 +85,7 @@
       $('#their-id').text(call.peer);
       call.on('close', step2);
       $('#step1, #step2').hide();
-      $('#step2').show();
-      //$('#step3').hide();
+      $('#step3').show();
     }
 
     function volumeOnClick() {
@@ -180,7 +179,9 @@
           <p>Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</p>
           <div id="step1-error">
             <p>Failed to access the webcam and microphone. Make sure to run this demo on an http server and click allow when asked for permission by the browser.</p>
-            <a href="#" class="pure-button pure-button-error" id="step1-retry">Try again</a>
+            <button id="step1-retry" class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+	        	<span class="glyphicon glyphicon-refresh"></span>
+	    </button>
           </div>
         </div>
 
@@ -190,14 +191,18 @@
           <p>Share this id with others so they can call you.</p>
           <div class="pure-form">
             <input type="text" placeholder="Call user id..." id="callto-id">
-            <a href="#" class="pure-button pure-button-success" id="make-call">Call</a>
+            <button id="make-call" class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+	        	<span class="glyphicon glyphicon-earphone"></span>
+	    </button>
           </div>
         </div>
 
         <!-- Call in progress -->
         <div id="step3">
           <p>Currently in call with <span id="their-id">...</span></p>
-          <p><a href="#" class="pure-button pure-button-error" id="end-call">End call</a></p>
+          <button id="end-call" class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+	        	<span class="glyphicon glyphicon-remove-sign"></span>
+	    </button>
         </div>
       </div>
   </div>
