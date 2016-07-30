@@ -34,6 +34,13 @@
     $(function(){
       $('#make-call').click(function(){
         // Initiate a call!
+
+        if($('#callto-id').val() == "" || $('#callto-id').val() == null) {
+          alert('Caller ID cannot be empty!');
+          return;
+        }
+        
+
         var call = peer.call($('#callto-id').val(), window.localStream);
 
         step3(call);
