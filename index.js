@@ -131,6 +131,15 @@ app.get('/video', function (req, res) {
   }
 });
 
+app.get('/video1', function (req, res) {
+  if (req.isAuthenticated()) { 
+    res.sendFile(__dirname + '/views/video/video1.html');
+  } else {
+    req.session.error = 'Please sign in!';
+    res.redirect('/signin');
+  }
+});
+
 //sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
 app.post('/local-reg', passport.authenticate('local-signup', {
   successRedirect: '/',
