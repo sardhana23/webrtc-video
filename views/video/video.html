@@ -11,6 +11,25 @@
 			left: 20px;
 		}
 
+		#messageSendArea {
+			position: absolute;
+			bottom: 70px;
+			left: 20px;	
+		}
+
+		.senderMessage {
+			background-color: #AAA;
+		}
+
+		#messageArea {
+			position: absolute;
+			top: 20px;
+			left: 20px;	
+			height: 300px;
+			width: 200px;
+			overflow: auto;
+		}
+
 		#logoffButton {
 			position: absolute;
 			top: 20px;
@@ -64,6 +83,21 @@
 				button.className = "btn btn-primary btn-lg";
 			}
 		}
+
+		function sendMessage() {
+			var text = document.getElementById("chatArea");
+			
+			if(text.value.length < 1) {
+				return;
+			}
+
+			comm.send(text.value);
+			var div = document.getElementById('messageArea');
+			var message = document.createElement("P");
+			message.className = "senderMessage";
+			message.innerHTML = text.value;
+			div.appendChild(message);
+		}
 	</script>
 
   </head>
@@ -82,6 +116,12 @@
 		<span class="glyphicon glyphicon-off"></span>
 	</a>
 
+	<div id="messageArea"></div>
+	<div id="messageSendArea">
+	<input type="text" id="chatArea"></input>
+	<button id="sendButton" type="button" onClick="sendMessage();">Send!</button>
+	</div>
+
     <script type="text/javascript">
 	var comm = new Icecomm('7tUHoLJ9OPIs3SdvJucSjNSeVTdM0a66hxmwFiXJnbcScXUG')
 	
@@ -97,7 +137,16 @@
 	});
 	
 	comm.on('disconnect', function(options) {
+		console.log(options.callerID);
 	    document.getElementById(options.callerID).remove();
+	});
+
+	comm.on('data', function(peer) {
+		console.log(peer.data);
+		var div = document.getElementById('messageArea');
+		var message = document.createElement("P");
+		message.innerHTML = peer.data;
+		div.appendChild(message);
 	});
 	
     </script> 
