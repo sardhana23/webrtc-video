@@ -24,9 +24,9 @@
       step3(call);
     });
     peer.on('error', function(err){
-      alert(err.message);
+      //alert(err.message);
       // Return to step 2 if error occurs
-      step2();
+      //step2();
     });
 
     // Click handlers setup
@@ -179,7 +179,7 @@
           <p>Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</p>
           <div id="step1-error">
             <p>Failed to access the webcam and microphone. Make sure to run this demo on an http server and click allow when asked for permission by the browser.</p>
-            <button id="step1-retry" class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+            <button id="step1-retry" class="btn btn-primary btn-lg" role="button">
 	        	<span class="glyphicon glyphicon-refresh"></span>
 	    </button>
           </div>
@@ -191,7 +191,7 @@
           <p>Share this id with others so they can call you.</p>
           <div class="pure-form">
             <input type="text" placeholder="Call user id..." id="callto-id">
-            <button id="make-call" class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+            <button id="make-call" class="btn btn-primary btn-lg" role="button">
 	        	<span class="glyphicon glyphicon-earphone"></span>
 	    </button>
           </div>
@@ -200,7 +200,7 @@
         <!-- Call in progress -->
         <div id="step3">
           <p>Currently in call with <span id="their-id">...</span></p>
-          <button id="end-call" class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+          <button id="end-call" class="btn btn-primary btn-lg" role="button">
 	        	<span class="glyphicon glyphicon-remove-sign"></span>
 	    </button>
         </div>
