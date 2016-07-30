@@ -87,6 +87,10 @@ app.use(session({secret: 'supernova', saveUninitialized: true, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/styles",  express.static(__dirname + '/public/stylesheets'));
+app.use("/scripts", express.static(__dirname + '/public/javascripts'));
+app.use("/images",  express.static(__dirname + '/public/images'));
+
 // Session-persisted message middleware
 app.use(function(req, res, next){
   var err = req.session.error,
