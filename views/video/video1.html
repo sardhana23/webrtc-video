@@ -24,9 +24,9 @@
       step3(call);
     });
     peer.on('error', function(err){
-      alert(err.message);
+      //alert(err.message);
       // Return to step 2 if error occurs
-      step2();
+      step1();
     });
 
     // Click handlers setup
@@ -85,8 +85,34 @@
       $('#their-id').text(call.peer);
       call.on('close', step2);
       $('#step1, #step2').hide();
-      $('#step3').hide();
+      $('#step2').hide();
+      //$('#step3').hide();
     }
+
+    function volumeOnClick() {
+		var video = document.getElementById('their-video');
+		var button = document.getElementById('volumeButton');
+		
+		if(video.muted) {
+			video.muted = false;
+			button.className = "btn btn-primary btn-lg";
+		} else {
+			video.muted = true;
+			button.className = "btn btn-danger btn-lg";
+		}
+	}
+
+	function videoOnClick() {
+		var style = document.getElementById('my-video').style;
+		var button = document.getElementById('videoButton');
+		if(style.display == '' || style.display == 'inline') {
+			style.display = 'none';	
+			button.className = "btn btn-danger btn-lg";
+		} else {
+			style.display = 'inline';
+			button.className = "btn btn-primary btn-lg";
+		}
+	}
 
   </script>
 
@@ -160,9 +186,8 @@
 
         <!-- Make calls to others -->
         <div id="step2">
-          <p>Your id: <span id="my-id">...</span></p>
+          <h3>Your id: <span id="my-id">...</span></h3>
           <p>Share this id with others so they can call you.</p>
-          <h3>Make a call</h3>
           <div class="pure-form">
             <input type="text" placeholder="Call user id..." id="callto-id">
             <a href="#" class="pure-button pure-button-success" id="make-call">Call</a>
