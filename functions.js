@@ -57,7 +57,7 @@ exports.localAuth = function (username, password) {
   }  
 
   var deferred = Q.defer();
-  console.log(body);
+  //console.log(body);
 
   if(username == "soma2307" && bcrypt.compareSync(password, "$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy")) {
     body["password"] = "$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy";
