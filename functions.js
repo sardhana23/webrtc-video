@@ -1,11 +1,10 @@
 // functions.js/
 var bcrypt = require('bcryptjs'),
-    Q = require('q');
-    //config = require('./config.js'), //config file contains all tokens and other private info
-    //db = require('orchestrate')(config.db); //config.db holds Orchestrate token
+    Q = require('q'),
+    config = require('./config.js'), //config file contains all tokens and other private info
+    db = require('orchestrate')(config.db); //config.db holds Orchestrate token
 
 //used in local-signup strategy
-/*
 exports.localReg = function (username, password) {
   var deferred = Q.defer();
   var hash = bcrypt.hashSync(password, 8);
@@ -44,31 +43,31 @@ exports.localReg = function (username, password) {
 
   return deferred.promise;
 };
-*/
 
 //check if user exists
 //if user exists check if passwords match (use bcrypt.compareSync(password, hash); // true where 'hash' is password in DB)
 //if password matches take into website
 //if user doesn't exist or password doesn't match tell them it failed
 exports.localAuth = function (username, password) {
+  var deferred = Q.defer();
+
   var body = {
     "username": username,
     "password": password
-  }
-  
+  }  
 
   var deferred = Q.defer();
   console.log(body);
-  deferred.resolve(body);
-  
-  /*
-  if((username == "soma2307" && password = "$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy") || (username == "manasi1710" && password == "$2a$08$ztm/PEuPFW/bemqFQYTVtez3OUi0AodH5ah.Ktn8DOFq64W2V96Ni")) {
-    console.log(result.body);
+
+  if(username == "soma2307" && bcrypt.compareSync(password, "$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy")) {
+    body["password"] = "$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy";
+    deferred.resolve(body);
+  } else if(username == "manasi1710" && bcrypt.compareSync(password, "$2a$08$ztm/PEuPFW/bemqFQYTVtez3OUi0AodH5ah.Ktn8DOFq64W2V96Ni") {
+    body["password"] = "$2a$08$ztm/PEuPFW/bemqFQYTVtez3OUi0AodH5ah.Ktn8DOFq64W2V96Ni";
     deferred.resolve(body);
   } else {
     deferred.resolve(false);
   }
-  */
 
   return deferred.promise;
 }
