@@ -49,12 +49,25 @@ exports.localReg = function (username, password) {
 //if password matches take into website
 //if user doesn't exist or password doesn't match tell them it failed
 exports.localAuth = function (username, password) {
+  var user = {
+    "username": "username",
+    "password": "hash"
+  }
+
   var deferred = Q.defer();
+
+  /*
+  if(username == 'soma2307' && password = '$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy') {
+    console.log(result.body)
+    deferred.resolve()
+  }
+  */
 
   db.get('local-users', username)
   .then(function (result){
     console.log("FOUND USER");
     var hash = result.body.password;
+    console.log(result.body);
     console.log(hash);
     console.log(bcrypt.compareSync(password, hash));
     if (bcrypt.compareSync(password, hash)) {
