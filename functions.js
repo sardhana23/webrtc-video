@@ -62,7 +62,7 @@ exports.localAuth = function (username, password) {
   if(username == "soma2307" && bcrypt.compareSync(password, "$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy")) {
     body["password"] = "$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy";
     deferred.resolve(body);
-  } else if(username == "manasi1710" && bcrypt.compareSync(password, "$2a$08$ztm/PEuPFW/bemqFQYTVtez3OUi0AodH5ah.Ktn8DOFq64W2V96Ni") {
+  } else if(username == "manasi1710" && bcrypt.compareSync(password, "$2a$08$ztm/PEuPFW/bemqFQYTVtez3OUi0AodH5ah.Ktn8DOFq64W2V96Ni")) {
     body["password"] = "$2a$08$ztm/PEuPFW/bemqFQYTVtez3OUi0AodH5ah.Ktn8DOFq64W2V96Ni";
     deferred.resolve(body);
   } else {
