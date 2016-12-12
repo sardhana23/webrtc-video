@@ -55,15 +55,20 @@ exports.localAuth = function (username, password) {
     "username": username,
     "password": password
   }
+  
 
   var deferred = Q.defer();
+  console.log(body);
+  deferred.resolve(body);
   
+  /*
   if((username == "soma2307" && password = "$2a$08$GFKkiuar70.BdesupURdF.iPQX.nFaPI19joNoViAjhmo3PcuZsSy") || (username == "manasi1710" && password == "$2a$08$ztm/PEuPFW/bemqFQYTVtez3OUi0AodH5ah.Ktn8DOFq64W2V96Ni")) {
     console.log(result.body);
     deferred.resolve(body);
   } else {
     deferred.resolve(false);
   }
+  */
 
   return deferred.promise;
 }
