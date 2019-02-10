@@ -4,14 +4,15 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   <!-- <script src="http://cdn.peerjs.com/0.3/peer.js"></script> -->
-  <script type="text/javascript" src="/scripts/peer.js"></script>
+  <!-- <script type="text/javascript" src="/scripts/peer.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@0.3.20/dist/peer.min.js"></script>
   <script>
 
     // Compatibility shim
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
     // PeerJS object
-    var peer = new Peer({ key: '6mwupj8rl1aqyqfr', debug: 3});
+    var peer = new Peer({key: 'lwjd5qra8257b9'});
 
     peer.on('open', function(){
       $('#my-id').text(peer.id);
@@ -66,7 +67,7 @@
       // Get audio/video stream
       navigator.getUserMedia({audio: true, video: true}, function(stream){
         // Set your video displays
-        $('#my-video').prop('src', URL.createObjectURL(stream));
+        $('#my-video').prop('srcObject', stream);
 
         window.localStream = stream;
         step2();
@@ -86,7 +87,7 @@
 
       // Wait for stream on the call, then set peer video display
       call.on('stream', function(stream){
-        $('#their-video').prop('src', URL.createObjectURL(stream));
+        $('#their-video').prop('srcObject', stream);
       });
 
       // UI stuff
