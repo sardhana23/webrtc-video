@@ -1,0 +1,154 @@
+<html>
+  <head>
+    <title>Soma's Chat</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="http://cdn.icecomm.io/icecomm.js"></script> 
+
+	<style>
+		#buttonPanel {
+			position: absolute;
+			bottom: 20px;
+			left: 20px;
+		}
+
+		#messageSendArea {
+			position: absolute;
+			bottom: 70px;
+			left: 20px;	
+		}
+
+		.senderMessage {
+			background-color: #AAA;
+		}
+
+		#messageArea {
+			position: absolute;
+			top: 20px;
+			left: 20px;	
+			height: 300px;
+			width: 200px;
+			overflow: auto;
+		}
+
+		#logoffButton {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+
+		#localVideo {
+		  position: absolute;
+		  right: 20px;
+		  bottom: 20px;
+		  width: 200px;
+		  transform: scaleX(-1);
+		}
+		
+		video:nth-of-type(2) {
+		  position: fixed;
+		  top: 0; left: 0; bottom: 0; right: 0;
+		  height: 100%; width: 100%;
+		  z-index: -100;
+		  background-size: cover;
+		}
+	</style>
+	<script type="text/javascript">
+		window.callerID = "null";
+
+		function volumeOnClick() {
+			if(window.callerID == "null") {
+				return;
+			}
+
+			var video = document.getElementById(window.callerID);
+			var button = document.getElementById('volumeButton');
+			
+			if(video.muted) {
+				video.muted = false;
+				button.className = "btn btn-primary btn-lg";
+			} else {
+				video.muted = true;
+				button.className = "btn btn-danger btn-lg";
+			}
+		}
+
+		function videoOnClick() {
+			var style = document.getElementById('localVideo').style;
+			var button = document.getElementById('videoButton');
+			if(style.display == '' || style.display == 'inline') {
+				style.display = 'none';	
+				button.className = "btn btn-danger btn-lg";
+			} else {
+				style.display = 'inline';
+				button.className = "btn btn-primary btn-lg";
+			}
+		}
+
+		function sendMessage() {
+			var text = document.getElementById("chatArea");
+			
+			if(text.value.length < 1) {
+				return;
+			}
+
+			comm.send(text.value);
+			var div = document.getElementById('messageArea');
+			var message = document.createElement("P");
+			message.className = "senderMessage";
+			message.innerHTML = text.value;
+			div.appendChild(message);
+		}
+	</script>
+
+  </head>
+  <body>
+    <video id="localVideo" muted autoplay style="scaleX=-1"></video>
+    <div id="buttonPanel">
+	    <button id="volumeButton" class="btn btn-primary btn-lg" role="button" onClick="volumeOnClick()">
+	        	<span class="glyphicon glyphicon-volume-up"></span>
+	    </button>
+
+	    <button id="videoButton" class="btn btn-primary btn-lg" role="button" onClick="videoOnClick()">
+	        	<span class="glyphicon glyphicon-film"></span>
+	    </button>
+	</div>
+	<a id='logoffButton' href='/logout' class="btn btn-danger btn-lg">
+		<span class="glyphicon glyphicon-off"></span>
+	</a>
+
+	<div id="messageArea"></div>
+	<div id="messageSendArea">
+	<input type="text" id="chatArea"></input>
+	<button id="sendButton" type="button" onClick="sendMessage();">Send!</button>
+	</div>
+
+    <script type="text/javascript">
+	var comm = new Icecomm('7tUHoLJ9OPIs3SdvJucSjNSeVTdM0a66hxmwFiXJnbcScXUG')
+	
+	comm.connect('njpWfaLee1');
+	
+	comm.on('local', function(options) {
+	  localVideo.src = options.stream;
+	});
+	
+	comm.on('connected', function(options) {
+	    document.body.appendChild(options.getVideo());
+	    window.callerID = options.callerID;
+	});
+	
+	comm.on('disconnect', function(options) {
+		console.log(options.callerID);
+	    document.getElementById(options.callerID).remove();
+	});
+
+	comm.on('data', function(peer) {
+		console.log(peer.data);
+		var div = document.getElementById('messageArea');
+		var message = document.createElement("P");
+		message.innerHTML = peer.data;
+		div.appendChild(message);
+	});
+	
+    </script> 
+  </body>
+</html>
