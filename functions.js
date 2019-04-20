@@ -51,8 +51,6 @@ exports.localReg = function (username, password) {
 //if password matches take into website
 //if user doesn't exist or password doesn't match tell them it failed
 exports.localAuth = function (username, password) {
-  var deferred = Q.defer();
-
   var body = {
     "username": username,
     "password": password
